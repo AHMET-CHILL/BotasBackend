@@ -12,6 +12,6 @@ namespace Business.Abstrac
         Task<List<Spot>> GetAllAsync();
         Task<List<Spot>> GetByPeriodAsync(int month, int year);
         Task<int> GetTotalCapacityByMonthAsync(int month, int year);
-        Task<double> GetTotalKapasiteByIdAsync(int Id);
+        
     }
 }

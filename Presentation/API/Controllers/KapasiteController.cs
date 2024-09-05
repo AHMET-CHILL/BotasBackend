@@ -39,17 +39,7 @@ namespace API.Controllers
             var totalKapasite = await _spotRepository.GetTotalCapacityByMonthAsync(month, year);
             return Ok(totalKapasite);
         }
-        /*
-        [HttpGet("get-rapor/{kurumId}")]
-        public async Task<IActionResult> GetRapor(int kurumId)
-        {
-            var toplamAkis = await _akisRepository.GetTotalAkisByKurumIdAsync(kurumId);//model donecek geriye
-            var toplamKapasite = await _spotRepository.GetTotalKapasiteByIdAsync(kurumId);
-            var kapasiteBedeli = (toplamAkis + toplamKapasite) / 100;
-
-            return Ok(new { ToplamAkis = toplamAkis, ToplamKapasite = toplamKapasite, KapasiteBedeli = kapasiteBedeli });
-        }
-        */
+        
 
         [HttpGet("get-rapor")]
         public async Task<IActionResult> GetRapor(int kurum_id)

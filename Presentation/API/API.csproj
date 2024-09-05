@@ -14,9 +14,4 @@
     <ProjectReference Include="..\..\Repository\Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
-
 </Project>

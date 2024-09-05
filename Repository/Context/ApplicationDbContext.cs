@@ -14,6 +14,8 @@ namespace Business.Context
 
         public DbSet<Spot> Spot { get; set; }
         public DbSet<Akisveri> Akisveri { get; set; }
+        public DbSet<Device> Device { get; set; }
+        public DbSet<Ping> Ping { get; set; }
        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -18,6 +18,7 @@ namespace Business
             services.AddScoped<IInoviceRepository,InoviceRepository >();
 
 
+
             // Diğer servis kayıtları
         }
 

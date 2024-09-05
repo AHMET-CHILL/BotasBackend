@@ -60,17 +60,7 @@ namespace Business.Repository
            
         }
 
-        public async Task<double> GetTotalKapasiteByIdAsync(int kurum_id)
-        {
-            using (var _context = new ApplicationDbContext())
-            {
-                return await _context.Spot
-                             .Where(k => k.Id == kurum_id)
-                             .SumAsync(k => k.kapasite);
-
-            }
-
-        }
+       
 
 
     }
