@@ -84,9 +84,6 @@ namespace DataTransferAppForm
         {
 
             string apiKey = "0123ASAFDSFGDSGSGJS231353513DAFASFAFAHOAJDFAFEWOUGHWGFWIGBEWUOGBWEJGWPGWRG46546846";
-
-
-            List<Device> devices = new List<Device>();
             string urlDevices = "http://10.50.10.14:81/DeviceList";
             Uri uri = new Uri(urlDevices); //URÝ BÝR CLASS
             RestClient restClient = new RestClient(uri);
@@ -98,17 +95,32 @@ namespace DataTransferAppForm
             var Ijsondata = JsonConvert.DeserializeObject<List<Device>>(response.Content);
             var context = new ApplicationDbContext();
             var Data = context.Device.ToList();
+
+
+
+
             if (Data != null)
             {
+
                 context.Device.RemoveRange(Data);
                 context.SaveChanges();
 
             }
 
+            foreach (var item in Ijsondata)
+            {
+
+                context.Device.Add(item);
+                context.SaveChanges();
+                listBox1.Items.Add($"{DateTime.Now}  {item.cihazAdi}  kayýt edildi");
+                //Thread.Sleep(200);
+            }
+                
 
 
-            context.Device.AddRange(Ijsondata);
-            context.SaveChanges();
+
+            //context.Device.AddRange(Ijsondata);
+            //context.SaveChanges();
 
 
 
@@ -150,57 +162,18 @@ namespace DataTransferAppForm
         {
 
 
-            string apiKey = "0123ASAFDSFGDSGSGJS231353513DAFASFAFAHOAJDFAFEWOUGHWGFWIGBEWUOGBWEJGWPGWRG46546846";
 
+        }
 
-            List<Ping> pings = new List<Ping>();
-            string urlPingList = "http://10.50.10.14:81/PingList";
-            Uri uri = new Uri(urlPingList); //URÝ BÝR CLASS
-            RestClient restClient = new RestClient(uri);
-            RestRequest request = new RestRequest(uri, Method.Get);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Authorization", apiKey);
-            var response = restClient.Execute(request);
-            var Ijsondata = JsonConvert.DeserializeObject<List<Ping>>(response.Content);
-            var context = new ApplicationDbContext();
-            var Data = context.Ping.ToList();
-            if (Data != null)
-            {
-                context.Ping.RemoveRange(Data);
-                context.SaveChanges();
-
-            }
-            context.Ping.AddRange(Ijsondata);
-            context.SaveChanges();
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
 
 
-            /*
-            string Idata = File.ReadAllText("PingList.json");
-            var Ijsondata=JsonConvert.DeserializeObject<List<PingList>>(Idata);
-            var context = new ApplicationDbContext();
-            var Data=context.PingList.ToList();
-            if(Data==null && Data.Count == 0)
-            {
-                foreach(var data in Ijsondata)
-                {
-                    context.PingList.Add(data);
-                    context.SaveChanges();
-                }
-            }else
-            {
-                context.PingList.RemoveRange(Data);
-                context.SaveChanges() ;
-                foreach (var data in Ijsondata)
-                {
+        }
 
-                    context.PingList.Add(data);
-                    context.SaveChanges(); //commitlemek için
-                }
-
-            }
-            */
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

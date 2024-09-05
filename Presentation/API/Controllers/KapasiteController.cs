@@ -11,12 +11,15 @@ namespace API.Controllers
         private readonly IAkisRepository _akisRepository;
         private readonly ISpotRepository _spotRepository;
         private readonly IInoviceRepository _ınoviceRepository;
+        private readonly IInterruptRepository _interruptRepository;
 
-        public KapasiteController(ISpotRepository spotRepository, IAkisRepository akisRepository, IInoviceRepository ınoviceRepository)
+        public KapasiteController(ISpotRepository spotRepository, IAkisRepository akisRepository,
+            IInoviceRepository ınoviceRepository, IInterruptRepository ınterruptRepository)
         {
             _spotRepository = spotRepository;
             _akisRepository = akisRepository;
             _ınoviceRepository = ınoviceRepository;
+            _interruptRepository = ınterruptRepository;
         }
 
         [HttpGet("get-all")]
@@ -48,6 +51,14 @@ namespace API.Controllers
             var sonuc= await _ınoviceRepository.GetTotalInoviceByKurumIdAsync(kurum_id);
             return Ok(sonuc);
 
+        }
+
+        [HttpGet("GetInterruptReport")]
+        
+        public async Task<IActionResult> GetInterruptReport()
+        {
+            var report= await _interruptRepository.GetInterruptReportAsync();
+            return Ok(report);
         }
 
     }

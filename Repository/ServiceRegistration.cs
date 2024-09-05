@@ -16,7 +16,7 @@ namespace Business
             services.AddScoped<ISpotRepository,SpotRepository >();
             services.AddScoped<IAkisRepository, AkisRepository >();
             services.AddScoped<IInoviceRepository,InoviceRepository >();
-
+            services.AddScoped<IInterruptRepository, InterruptRepository >();
 
 
             // Diğer servis kayıtları
