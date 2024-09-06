@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Presentation\API\API
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferApp", "Presentation\DataTransferApp\DataTransferApp.csproj", "{533D3A00-55E0-4122-B802-0A2D58277257}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferAppForm", "Presentation\DataTransferAppForm\DataTransferAppForm.csproj", "{502658E5-4821-4B5A-9F88-8A96264AFBB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferAppForm", "Presentation\DataTransferAppForm\DataTransferAppForm.csproj", "{502658E5-4821-4B5A-9F88-8A96264AFBB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

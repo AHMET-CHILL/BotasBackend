@@ -1,5 +1,7 @@
 ﻿using Business.Abstrac;
 using Business.Context;
+using Business.Services;
+using Business.Utilities;
 using DataAccess.Entities;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,41 +18,24 @@ namespace Business.Repository
 {
     public class InterruptRepository : IInterruptRepository
     {
+       
         private readonly IMemoryCache _memoryCache;
-        private readonly TimeSpan _cacheDuration = TimeSpan.FromSeconds(30);
-
 
         public InterruptRepository(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
         }
 
-        
-
         public async Task<List<InterruptionReport>> GetInterruptReportAsync()
         {
 
-            string cacheKey = "DeveciKey";
-
-            if (!_memoryCache.TryGetValue(cacheKey, out List<Device> cachedData))
-            {
-                var _context = new ApplicationDbContext();
-                // Eğer cache'de yoksa veritabanına git ve veriyi al
-                cachedData = _context.Device.ToList();
-               
-
-                // Veriyi cache'e ekle
-                var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(_cacheDuration); // Cache süresi 30 dakika
-
-                _memoryCache.Set(cacheKey, cachedData, cacheOptions);
-            }
-
-            
-        
 
 
-           
+
+             var cachedData = new CacheService().getDeviceListFromCache( _memoryCache  ,CacheKeys.interruptCacheKey);
+
+
+
 
                 string apiKey = "0123ASAFDSFGDSGSGJS231353513DAFASFAFAHOAJDFAFEWOUGHWGFWIGBEWUOGBWEJGWPGWRG46546846";
 

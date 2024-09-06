@@ -1,5 +1,7 @@
 ﻿using Business.Abstrac;
 using Business.Context;
+using Business.Services;
+using Business.Utilities;
 using DataAccess.Entities;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +18,6 @@ namespace Business.Repository
     {
 
         private readonly IMemoryCache _memoryCache;
-        private readonly TimeSpan _cacheDuration = TimeSpan.FromSeconds(30);
 
         public InoviceRepository(IMemoryCache memoryCache)
         {
@@ -29,45 +30,17 @@ namespace Business.Repository
         {
 
 
-            string akisCache = "akisCache";
-
-            if (!_memoryCache.TryGetValue(akisCache, out List<Akisveri> akisveri))
-            {
-                var _context = new ApplicationDbContext();
-                // Eğer cache'de yoksa veritabanına git ve veriyi al
-                akisveri = _context.Akisveri.ToList();
+            var cachedAkisData = new CacheService().GetAkisveriListFromCache(_memoryCache, CacheKeys.InnoviceCacheKey);
+            var cachedSpotData= new CacheService().getSpotListFromCache(_memoryCache, CacheKeys.InnoviceCacheKey);
+           
 
 
-                // Veriyi cache'e ekle
-                var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(_cacheDuration); // Cache süresi 30 dakika
-
-                _memoryCache.Set(akisCache, akisveri, cacheOptions);
-            }
-
-            string spotCache = "spotCache";
-
-            if (!_memoryCache.TryGetValue(spotCache, out List<Spot> spotveri))
-            {
-                var _context = new ApplicationDbContext();
-                // Eğer cache'de yoksa veritabanına git ve veriyi al
-                spotveri = _context.Spot.ToList();
-
-
-                // Veriyi cache'e ekle
-                var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(_cacheDuration); // Cache süresi 30 dakika
-
-                _memoryCache.Set(akisCache, akisveri, cacheOptions);
-            }
-
-
-            var akismodel = akisveri
+            var akismodel = cachedAkisData
                                   .Where(a => a.kurum_id == kurum_id).FirstOrDefault();
 
 
 
-                Inovice.toplamKapasite= spotveri
+                Inovice.toplamKapasite= cachedSpotData
                              .Where(k => k.kurum_id == kurum_id)
                              .Sum(k => k.kapasite);
 
